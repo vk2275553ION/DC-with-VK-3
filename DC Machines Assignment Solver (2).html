@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DC Machines & Transformers - Assignment Solver</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Phosphor Icons CDN -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <!-- html2canvas for High Resolution Image Download -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            emerald: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              200: '#a7f3d0',
+              300: '#6ee7b7',
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
+              950: '#022c22'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .font-mono-code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      height: 6px;
+      width: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #059669;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="bg-emerald-50 text-slate-900 min-h-screen flex flex-col justify-between selection:bg-emerald-200 selection:text-emerald-950">
+
+  <!-- Header Banner -->
+  <header class="bg-white border-b-4 border-emerald-600 shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="bg-emerald-700 text-white p-2.5 rounded-xl shadow-lg flex items-center justify-center">
+          <i class="ph ph-lightning text-2xl font-bold"></i>
+        </div>
+        <div>
+          <h1 class="text-lg md:text-2xl font-black text-emerald-950 tracking-tight leading-tight">
+            DC Machines &amp; Transformers <span class="text-xs font-black px-2.5 py-1 bg-emerald-100 text-emerald-900 rounded-md border-2 border-emerald-400">Section 'B'</span>
+          </h1>
+          <p class="text-xs md:text-sm text-emerald-800 font-bold">Course Code: 23EE302 • Assignment #2 Step-by-Step Solver</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="text-right text-xs bg-emerald-100 border-2 border-emerald-400 px-3 py-1.5 rounded-xl text-emerald-950 font-black">
+          <span>Submission Due:</span> <span class="text-emerald-700 underline font-black">28-10-2026</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="max-w-5xl mx-auto w-full px-4 py-6 flex-grow">
+
+    <!-- HERO HIGHLIGHTED ROLL NUMBER ENTRY SECTION -->
+    <section class="relative bg-gradient-to-b from-white to-emerald-50 rounded-3xl shadow-2xl border-4 border-emerald-600 p-6 md:p-8 mb-8 overflow-hidden">
+      <!-- Decorative background glow and accent stripes -->
+      <div class="absolute -top-12 -right-12 w-48 h-48 bg-emerald-300/30 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-10 -left-10 w-44 h-44 bg-emerald-400/20 rounded-full blur-2xl pointer-events-none"></div>
+      
+      <!-- Prominent Header Tag -->
+      <div class="flex items-center justify-between flex-wrap gap-2 mb-4">
+        <span class="inline-flex items-center gap-2 bg-emerald-700 text-white text-xs md:text-sm font-black px-4 py-1.5 rounded-full shadow-md tracking-wider uppercase">
+          <i class="ph ph-identification-badge text-lg"></i>
+          Section 'B' Assignment Portal
+        </span>
+        <span class="text-xs md:text-sm font-extrabold text-emerald-900 bg-emerald-200/80 px-3 py-1 rounded-lg border border-emerald-400">
+          Last 3 Digits [X] Formula
+        </span>
+      </div>
+
+      <!-- Main Headline Prompt -->
+      <div class="text-center md:text-left mb-6">
+        <h2 class="text-2xl md:text-3xl font-black text-emerald-950 tracking-tight flex flex-col md:flex-row md:items-center gap-2">
+          <span>Enter Your Name or Roll Number</span>
+          <span class="text-base md:text-xl font-extrabold text-emerald-700">(Type Any Name or 3 Digits)</span>
+        </h2>
+        <p class="text-xs md:text-sm text-slate-600 font-bold mt-1">
+          Type any student name (e.g., <span class="text-emerald-800 underline">Vinoth</span>, <span class="text-emerald-800 underline">Ragu</span>, <span class="text-emerald-800 underline">Praveen</span>) or 3 digits (e.g., <span class="text-emerald-800 underline">121</span>, <span class="text-emerald-800 underline">089</span>). Your name, formula substitution, and step-by-step solutions update instantly!
+        </p>
+      </div>
+
+      <!-- Highlighted Input Grid (Streamlined Full Width) -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch">
+        
+        <!-- Prominent Universal Input Box -->
+        <div class="md:col-span-8 bg-white border-3 border-emerald-500 rounded-2xl p-4 md:p-5 shadow-lg flex flex-col justify-between ring-4 ring-emerald-200/60">
+          <label for="rollInput" class="block text-xs md:text-sm font-black text-emerald-950 uppercase tracking-wider mb-2 flex items-center justify-between">
+            <span class="flex items-center gap-1.5">
+              <i class="ph ph-magnifying-glass text-emerald-700 text-lg"></i>
+              Type Any Name or Roll Number:
+            </span>
+            <span id="detectedBadge" class="text-emerald-700 font-mono-code font-black text-xs bg-emerald-100 px-2 py-0.5 rounded">Auto-Detecting</span>
+          </label>
+          
+          <div class="relative my-2">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+              <i class="ph ph-user-focus text-emerald-700 text-2xl font-bold"></i>
+            </div>
+            <input 
+              type="text" 
+              id="rollInput" 
+              value="VINOTH KUMAR J"
+              placeholder="Type name (e.g. Vinoth) or roll (e.g. 121)..." 
+              oninput="handleUniversalSearchInput()"
+              class="w-full bg-emerald-50/90 border-3 border-emerald-600 text-emerald-950 text-xl md:text-2xl font-black rounded-2xl pl-11 pr-4 py-3.5 focus:outline-none focus:ring-4 focus:ring-emerald-400 focus:bg-white text-left font-sans shadow-inner tracking-wide transition-all"
+            />
+          </div>
+
+          <!-- Quick click shortcuts for various sample students -->
+          <div class="flex flex-wrap items-center gap-1.5 mt-2 pt-2 border-t border-emerald-100 text-xs font-bold text-slate-600">
+            <span class="text-slate-500 font-black">Quick Pick:</span>
+            <button onclick="setSearchDirect('Vinoth')" class="px-2.5 py-1 bg-emerald-100 hover:bg-emerald-200 text-emerald-950 rounded-lg font-black transition">Vinoth (121)</button>
+            <button onclick="setSearchDirect('Ragu')" class="px-2.5 py-1 bg-emerald-100 hover:bg-emerald-200 text-emerald-950 rounded-lg font-black transition">Ragu (089)</button>
+            <button onclick="setSearchDirect('Praveen')" class="px-2.5 py-1 bg-emerald-100 hover:bg-emerald-200 text-emerald-950 rounded-lg font-black transition">Praveen (084)</button>
+            <button onclick="setSearchDirect('Sanjay')" class="px-2.5 py-1 bg-emerald-100 hover:bg-emerald-200 text-emerald-950 rounded-lg font-black transition">Sanjay (098)</button>
+            <button onclick="setSearchDirect('Sham')" class="px-2.5 py-1 bg-emerald-100 hover:bg-emerald-200 text-emerald-950 rounded-lg font-black transition">Sham (105)</button>
+          </div>
+        </div>
+
+        <!-- Solve / Refresh Button -->
+        <div class="md:col-span-4 flex items-stretch">
+          <button 
+            onclick="recalculateAll()" 
+            class="w-full bg-emerald-700 hover:bg-emerald-800 active:scale-98 text-white font-black text-base md:text-lg px-6 py-4 rounded-2xl transition shadow-xl flex flex-col items-center justify-center gap-2 border-b-4 border-emerald-950">
+            <div class="flex items-center gap-2">
+              <i class="ph ph-lightning text-2xl font-bold text-amber-300"></i>
+              <span>Solve Now</span>
+            </div>
+            <span class="text-xs text-emerald-200 font-bold">Update All 5 Solutions</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Personalized Student Greeting Banner (Hi 👋 + Name) -->
+      <div id="greetingBanner" class="mt-6 p-4 md:p-5 bg-gradient-to-r from-emerald-700 via-emerald-800 to-emerald-950 text-white rounded-2xl shadow-xl flex items-center justify-between flex-wrap gap-3 border-2 border-emerald-400">
+        <div class="flex items-center gap-3">
+          <span class="text-3xl md:text-4xl animate-bounce">👋</span>
+          <div>
+            <div class="text-xs uppercase font-extrabold tracking-widest text-emerald-300">Student Profile Verified</div>
+            <div class="text-lg md:text-2xl font-black tracking-wide">
+              Hi <span id="studentGreetingName" class="text-emerald-100 uppercase underline decoration-2 underline-offset-4">VINOTH KUMAR J</span>!
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="text-xs md:text-sm font-extrabold bg-emerald-900/90 border border-emerald-400 px-4 py-2 rounded-xl font-mono-code text-right">
+            <div>Full Roll: <span id="greetingRollNum" class="text-emerald-200 font-black">25EE121</span></div>
+            <div class="text-xs text-emerald-300">Formula [X]: <span id="greetingDigits" class="text-white font-black">121</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Parameter preview strip -->
+      <div class="mt-4 pt-3 border-t-2 border-emerald-200/80 flex flex-wrap items-center justify-between gap-2 text-xs md:text-sm font-bold text-slate-700">
+        <div class="flex items-center gap-2">
+          <i class="ph ph-sliders text-emerald-700 text-lg"></i>
+          <span>Substituted Parameters:</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 font-mono-code">
+          <span class="bg-white border border-emerald-300 px-2.5 py-1 rounded-md text-emerald-900 font-black">Flux = <span id="valFlux">0.105 Wb</span></span>
+          <span class="bg-white border border-emerald-300 px-2.5 py-1 rounded-md text-emerald-900 font-black">Ra = <span id="valRes">0.105 Ω</span></span>
+          <span class="bg-white border border-emerald-300 px-2.5 py-1 rounded-md text-emerald-900 font-black">Ish = <span id="valCurr">3.105 A</span></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Question Tabs Navigation & Download Action -->
+    <nav class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between bg-white border-2 border-emerald-300 rounded-2xl p-2.5 mb-6 shadow-md gap-3">
+      <div class="flex items-center gap-2 overflow-x-auto custom-scroll pb-1 sm:pb-0">
+        <button onclick="goToQuestion(1)" id="tabBtn1" class="tab-btn px-4 py-2.5 rounded-xl text-sm font-black flex items-center gap-1.5 transition-all bg-emerald-700 text-white shadow-md">
+          <span>Q1</span> <span class="hidden md:inline font-bold opacity-90">• Lap Shunt Gen</span>
+        </button>
+        <button onclick="goToQuestion(2)" id="tabBtn2" class="tab-btn px-4 py-2.5 rounded-xl text-sm font-black flex items-center gap-1.5 transition-all text-slate-700 hover:bg-emerald-100">
+          <span>Q2</span> <span class="hidden md:inline font-bold opacity-90">• Compound Gen</span>
+        </button>
+        <button onclick="goToQuestion(3)" id="tabBtn3" class="tab-btn px-4 py-2.5 rounded-xl text-sm font-black flex items-center gap-1.5 transition-all text-slate-700 hover:bg-emerald-100">
+          <span>Q3</span> <span class="hidden md:inline font-bold opacity-90">• Series Motor</span>
+        </button>
+        <button onclick="goToQuestion(4)" id="tabBtn4" class="tab-btn px-4 py-2.5 rounded-xl text-sm font-black flex items-center gap-1.5 transition-all text-slate-700 hover:bg-emerald-100">
+          <span>Q4</span> <span class="hidden md:inline font-bold opacity-90">• Speed Control</span>
+        </button>
+        <button onclick="goToQuestion(5)" id="tabBtn5" class="tab-btn px-4 py-2.5 rounded-xl text-sm font-black flex items-center gap-1.5 transition-all text-slate-700 hover:bg-emerald-100">
+          <span>Q5</span> <span class="hidden md:inline font-bold opacity-90">• Gen Efficiency</span>
+        </button>
+      </div>
+
+      <!-- Action Buttons: Download Image & Copy Steps -->
+      <div class="flex items-center gap-2 justify-end shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 sm:border-l-2 border-emerald-200 sm:pl-3">
+        <button 
+          id="downloadImgBtn"
+          onclick="downloadAndOpenSolutionImage()" 
+          class="bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-black text-xs md:text-sm px-4 py-2.5 rounded-xl flex items-center gap-1.5 shadow-md border border-emerald-800 transition">
+          <i class="ph ph-download-simple text-lg font-bold"></i>
+          <span>Download &amp; Open Image</span>
+        </button>
+        <button 
+          onclick="copyCurrentSolution()" 
+          class="bg-emerald-100 hover:bg-emerald-200 text-emerald-950 font-black text-xs md:text-sm px-3.5 py-2.5 rounded-xl flex items-center gap-1.5 border border-emerald-300 transition">
+          <i class="ph ph-copy text-lg font-bold"></i>
+          <span>Copy</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Problem Container Card (This element is captured for image export) -->
+    <div id="solutionCard" class="bg-white rounded-2xl shadow-xl border-3 border-emerald-400 overflow-hidden">
+      
+      <!-- Card Watermark Header for Section B submission with Student Info -->
+      <div class="bg-emerald-900 text-white px-5 py-3 border-b-2 border-emerald-700 flex flex-wrap items-center justify-between gap-2">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="bg-emerald-600 text-white font-black text-xs px-2.5 py-1 rounded-md tracking-wider uppercase">
+            Section 'B' (3 Digits)
+          </span>
+          <span class="text-xs md:text-sm font-bold text-emerald-200">
+            Student: <span id="headerStudentName" class="text-white font-extrabold underline">SHAM P</span>
+          </span>
+          <span class="text-xs md:text-sm font-bold text-emerald-200">
+            Roll No: <span id="headerFullRoll" class="text-emerald-300 font-mono-code font-black">25EE105</span>
+            (Digits: <span id="headerRollNum" class="text-white font-mono-code font-black underline">105</span>)
+          </span>
+        </div>
+        <div class="text-xs font-extrabold text-emerald-300 flex items-center gap-1.5">
+          <i class="ph ph-seal-check text-emerald-400 text-base"></i> Complete Step-by-Step Solution
+        </div>
+      </div>
+
+      <!-- Question Prompt Area (Large Bold Format) -->
+      <div class="bg-emerald-800 text-white p-5 md:p-7 border-b-2 border-emerald-700">
+        <div class="flex items-center justify-between mb-3">
+          <span id="questionTag" class="text-xs md:text-sm font-black uppercase tracking-widest bg-emerald-950 text-emerald-300 px-3.5 py-1.5 rounded-lg border-2 border-emerald-600">
+            Question 1 of 5
+          </span>
+          <span class="text-xs md:text-sm font-black text-emerald-200 bg-emerald-700/80 px-3 py-1 rounded-md">
+            23EE302 Assignment #2
+          </span>
+        </div>
+        <h2 id="questionStatement" class="text-base md:text-xl font-black leading-relaxed text-emerald-50">
+          <!-- Populated by JS -->
+        </h2>
+      </div>
+
+      <!-- Detailed Step-by-Step Solution Area (Large Bold Format) -->
+      <div class="p-5 md:p-8 space-y-6" id="solutionSteps">
+        <!-- Injected dynamically by JS -->
+      </div>
+
+      <!-- Question Navigation Footer (Previous / Next Question) -->
+      <div class="bg-emerald-100/90 border-t-3 border-emerald-300 p-4 md:px-7 flex flex-wrap items-center justify-between gap-3">
+        <button 
+          id="prevBtn" 
+          onclick="changeQuestion(-1)" 
+          class="flex items-center gap-2 px-5 py-3 rounded-xl border-2 border-emerald-600 bg-white text-emerald-950 font-black text-sm md:text-base hover:bg-emerald-50 transition shadow disabled:opacity-40 disabled:cursor-not-allowed">
+          <i class="ph ph-arrow-left text-lg font-black"></i>
+          <span>Previous Sum</span>
+        </button>
+
+        <div class="text-sm font-black text-emerald-900 bg-white px-4 py-2 rounded-xl border border-emerald-300 shadow-sm">
+          <span>Question <strong id="bottomQNum" class="text-emerald-700 font-extrabold">1</strong> of 5</span>
+        </div>
+
+        <button 
+          id="nextBtn" 
+          onclick="changeQuestion(1)" 
+          class="flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-700 text-white font-black text-sm md:text-base hover:bg-emerald-800 shadow-md transition active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed border-b-4 border-emerald-950">
+          <span>Next Sum</span>
+          <i class="ph ph-arrow-right text-lg font-black"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Alert / Toast Modal -->
+    <div id="toast" class="fixed bottom-6 right-6 transform translate-y-28 opacity-0 transition-all duration-300 z-50 bg-emerald-950 text-white px-6 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 border-2 border-emerald-500">
+      <i class="ph ph-check-circle text-emerald-400 text-2xl font-bold"></i>
+      <span id="toastMsg" class="text-sm font-bold">Notification text</span>
+    </div>
+
+    <!-- Image Preview / Open Modal Popup -->
+    <div id="imagePreviewModal" class="fixed inset-0 z-50 hidden bg-black/75 backdrop-blur-sm flex items-center justify-center p-3 md:p-6 transition-opacity">
+      <div class="bg-white rounded-2xl shadow-2xl border-4 border-emerald-600 max-w-3xl w-full max-h-[92vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+        <!-- Modal Header -->
+        <div class="bg-emerald-900 text-white px-5 py-3.5 flex items-center justify-between border-b-2 border-emerald-700">
+          <div class="flex items-center gap-2">
+            <span class="p-1.5 bg-emerald-700 rounded-lg"><i class="ph ph-image text-xl"></i></span>
+            <div>
+              <h3 class="font-black text-sm md:text-base text-white">Downloaded Image Preview</h3>
+              <p class="text-xs text-emerald-200" id="previewFilename">SecB_Solution_Q1.png</p>
+            </div>
+          </div>
+          <button onclick="closePreviewModal()" class="text-white hover:text-rose-300 p-1.5 rounded-lg hover:bg-emerald-800 transition">
+            <i class="ph ph-x text-2xl font-bold"></i>
+          </button>
+        </div>
+
+        <!-- Modal Image Body (Scrollable) -->
+        <div class="p-3 md:p-5 overflow-y-auto custom-scroll flex-grow bg-slate-100 flex items-center justify-center min-h-[300px]">
+          <img id="previewImgElement" src="" alt="Rendered Solution Preview" class="max-w-full h-auto rounded-xl shadow-lg border-2 border-emerald-300" />
+        </div>
+
+        <!-- Modal Footer Actions with Direct Open Link -->
+        <div class="bg-emerald-50 p-4 border-t-2 border-emerald-200 flex flex-wrap items-center justify-between gap-3">
+          <div class="text-xs font-bold text-emerald-900 flex items-center gap-1.5">
+            <i class="ph ph-check-circle-fill text-emerald-600 text-lg"></i>
+            <span>File downloaded automatically to your device!</span>
+          </div>
+          <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+            <a 
+              id="openInNewTabBtn" 
+              href="#" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="bg-emerald-700 hover:bg-emerald-800 text-white font-black text-xs md:text-sm px-4 py-2.5 rounded-xl flex items-center gap-1.5 shadow transition">
+              <i class="ph ph-arrow-square-out text-lg font-bold"></i>
+              <span>Open in New Tab</span>
+            </a>
+            <button 
+              onclick="closePreviewModal()" 
+              class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-black text-xs md:text-sm px-4 py-2.5 rounded-xl transition">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t-2 border-emerald-300 py-5 text-center text-xs md:text-sm font-bold text-emerald-900">
+    <div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p>Dept. of Electrical &amp; Electronics Engineering</p>
+      <p class="font-black text-emerald-700">Section 'B' Assignment Solver • High Resolution Image Exporter</p>
+    </div>
+  </footer>
+
+  <!-- Application Logic -->
+  <script>
+    // Complete Section B Roster with exact roll numbers
+    const sectionBStudents = [
+      { name: "MONISHA V", roll: "25EE064", digits: "064" },
+      { name: "MOULISHWARAN S", roll: "25EE065", digits: "065" },
+      { name: "MUHAMAD YASIN I", roll: "25EE066", digits: "066" },
+      { name: "MULLAIVENDHAN A", roll: "25EE067", digits: "067" },
+      { name: "MURUGAN P", roll: "25EE068", digits: "068" },
+      { name: "MURUGASAMY J", roll: "25EE069", digits: "069" },
+      { name: "NATHEESKUMAR M", roll: "25EE070", digits: "070" },
+      { name: "NAVAHARISHA R", roll: "25EE071", digits: "071" },
+      { name: "NAVANEETHA S", roll: "25EE072", digits: "072" },
+      { name: "NAVANITHISH R", roll: "25EE073", digits: "073" },
+      { name: "NAVEENKUMAR P", roll: "25EE074", digits: "074" },
+      { name: "NAVEENKUMAR R", roll: "25EE075", digits: "075" },
+      { name: "NISHCHITHA R", roll: "25EE076", digits: "076" },
+      { name: "NITHISH V", roll: "25EE077", digits: "077" },
+      { name: "PARTHIBAN S", roll: "25EE078", digits: "078" },
+      { name: "POOVARAGAVAN V", roll: "25EE080", digits: "080" },
+      { name: "POOVARASAN T", roll: "25EE081", digits: "081" },
+      { name: "PRAGADEESHWARAN S", roll: "25EE082", digits: "082" },
+      { name: "PRATHISH M", roll: "25EE083", digits: "083" },
+      { name: "PRAVEEN J", roll: "25EE084", digits: "084" },
+      { name: "PREMKUMAR S", roll: "25EE085", digits: "085" },
+      { name: "PRIYADHARSHINI M", roll: "25EE086", digits: "086" },
+      { name: "RAGAVAN S", roll: "25EE088", digits: "088" },
+      { name: "RAGU S", roll: "25EE089", digits: "089" },
+      { name: "RAKSHITHA S", roll: "25EE090", digits: "090" },
+      { name: "RAMAN T", roll: "25EE091", digits: "091" },
+      { name: "RIYALINCY D", roll: "25EE092", digits: "092" },
+      { name: "ROHITH S", roll: "25EE093", digits: "093" },
+      { name: "SABARIVASAN K", roll: "25EE094", digits: "094" },
+      { name: "SAKTHI ABINAYA R", roll: "25EE095", digits: "095" },
+      { name: "SAM DISILVA S", roll: "25EE096", digits: "096" },
+      { name: "SANGEETHA S", roll: "25EE097", digits: "097" },
+      { name: "SANJAY GANDHI A", roll: "25EE098", digits: "098" },
+      { name: "SANTHOSH D", roll: "25EE099", digits: "099" },
+      { name: "SANTHOSH V", roll: "25EE100", digits: "100" },
+      { name: "SARATHKUMAR M", roll: "25EE101", digits: "101" },
+      { name: "SASITHARAN G", roll: "25EE102", digits: "102" },
+      { name: "SATHISHKUMAR D", roll: "25EE103", digits: "103" },
+      { name: "SHAARIKA R", roll: "25EE104", digits: "104" },
+      { name: "SHAM P", roll: "25EE105", digits: "105" },
+      { name: "SIVA I", roll: "25EE106", digits: "106" },
+      { name: "SIVAMANIKANDAN D", roll: "25EE107", digits: "107" },
+      { name: "SIVANI C", roll: "25EE108", digits: "108" },
+      { name: "SOWBARNIKASRI K M", roll: "25EE109", digits: "109" },
+      { name: "SOWMIYA R", roll: "25EE110", digits: "110" },
+      { name: "SRIJANANI G", roll: "25EE111", digits: "111" },
+      { name: "SRIKANTH N", roll: "25EE112", digits: "112" },
+      { name: "SRIKANTH T", roll: "25EE113", digits: "113" },
+      { name: "STALIN G S", roll: "25EE114", digits: "114" },
+      { name: "SUBHASRI R", roll: "25EE115", digits: "115" },
+      { name: "THIRUMOORTHI M", roll: "25EE116", digits: "116" },
+      { name: "UBAITH RAHMAN S", roll: "25EE117", digits: "117" },
+      { name: "VANAJA P", roll: "25EE118", digits: "118" },
+      { name: "VASUDEVAN R", roll: "25EE119", digits: "119" },
+      { name: "VIGNESHKUMAR V", roll: "25EE120", digits: "120" },
+      { name: "VINOTH KUMAR J", roll: "25EE121", digits: "121" },
+      { name: "VISHALI K", roll: "25EE122", digits: "122" },
+      { name: "VISHALIKA K", roll: "25EE123", digits: "123" },
+      { name: "YOGESH S", roll: "25EE124", digits: "124" },
+      { name: "YOGESHWARAN M", roll: "25EE125", digits: "125" },
+      { name: "YUVARAJ M", roll: "25EE126", digits: "126" },
+      { name: "VIGNESH I", roll: "25EE127", digits: "127" },
+      { name: "RAJASEKAR B", roll: "25EE128", digits: "128" },
+      { name: "KAVIRAJ P R", roll: "25EE129", digits: "129" },
+      { name: "VIJAY K S", roll: "25EE130", digits: "130" }
+    ];
+
+    // App State - default to Vinoth Kumar J (121)
+    let currentQ = 1;
+    let currentRollDigits = "121";
+    let currentStudentName = "VINOTH KUMAR J";
+    let currentFullRoll = "25EE121";
+
+    // Universal Search: handles typing Student Name, Full Roll No, or Digits
+    function handleUniversalSearchInput() {
+      const input = document.getElementById('rollInput');
+      const query = input.value.trim().toUpperCase();
+      const detectedBadge = document.getElementById('detectedBadge');
+
+      if (!query) {
+        detectedBadge.innerText = 'Waiting...';
+        return;
+      }
+
+      // 1. Check if the input contains digits
+      const digitsOnly = query.replace(/[^0-9]/g, '');
+
+      // 2. Try to match by student name substring (e.g. "VINOTH", "MONISHA", "VIJAY")
+      let match = sectionBStudents.find(s => s.name.toUpperCase().includes(query));
+
+      // 3. If no name match, try to match by exact roll string (e.g. "25EE121" or "EE121")
+      if (!match) {
+        match = sectionBStudents.find(s => s.roll.toUpperCase().includes(query));
+      }
+
+      // 4. If still no match and user typed digits, find by 3-digit code or number
+      if (!match && digitsOnly.length > 0) {
+        const paddedDigits = digitsOnly.padStart(3, '0');
+        match = sectionBStudents.find(s => s.digits === paddedDigits || parseInt(s.digits, 10) === parseInt(digitsOnly, 10));
+      }
+
+      if (match) {
+        currentStudentName = match.name;
+        currentFullRoll = match.roll;
+        currentRollDigits = match.digits;
+        detectedBadge.innerText = `Matched #${match.digits}`;
+      } else {
+        // Custom name or custom roll not in predefined list
+        currentStudentName = query;
+        if (digitsOnly.length > 0) {
+          currentRollDigits = digitsOnly.slice(-3).padStart(3, '0');
+        } else {
+          let hash = 0;
+          for (let i = 0; i < query.length; i++) {
+            hash = (hash * 31 + query.charCodeAt(i)) % 900;
+          }
+          currentRollDigits = String(100 + Math.abs(hash)).padStart(3, '0').slice(-3);
+        }
+        currentFullRoll = `25EE${currentRollDigits}`;
+        detectedBadge.innerText = `Custom #${currentRollDigits}`;
+      }
+
+      updateUIDisplays();
+      renderCurrentQuestion();
+    }
+
+    // Direct helper for quick buttons
+    function setSearchDirect(query) {
+      document.getElementById('rollInput').value = query;
+      handleUniversalSearchInput();
+      showToast(`Hi 👋 ${currentStudentName}`);
+    }
+
+    function setRollDirect(roll) {
+      setSearchDirect(roll);
+    }
+
+    function handleManualRollChange() {
+      handleUniversalSearchInput();
+    }
+
+    function updateUIDisplays() {
+      const headerRoll = document.getElementById('headerRollNum');
+      if (headerRoll) headerRoll.innerText = currentRollDigits;
+      
+      const headerStudent = document.getElementById('headerStudentName');
+      if (headerStudent) headerStudent.innerText = currentStudentName;
+
+      const headerFull = document.getElementById('headerFullRoll');
+      if (headerFull) headerFull.innerText = currentFullRoll;
+      
+      // Update Hi 👋 greeting banner
+      document.getElementById('studentGreetingName').innerText = currentStudentName;
+      document.getElementById('greetingRollNum').innerText = currentFullRoll;
+      const gDigits = document.getElementById('greetingDigits');
+      if (gDigits) gDigits.innerText = currentRollDigits;
+
+      document.getElementById('valFlux').innerText = `0.${currentRollDigits} Wb`;
+      document.getElementById('valRes').innerText = `0.${currentRollDigits} Ω`;
+      document.getElementById('valCurr').innerText = `3.${currentRollDigits} A`;
+    }
+
+    function recalculateAll() {
+      handleUniversalSearchInput();
+      showToast(`Hi 👋 ${currentStudentName}! Calculations ready.`);
+    }
+
+    function goToQuestion(qNum) {
+      currentQ = qNum;
+      updateTabStyles();
+      renderCurrentQuestion();
+    }
+
+    function changeQuestion(delta) {
+      const target = currentQ + delta;
+      if (target >= 1 && target <= 5) {
+        goToQuestion(target);
+      }
+    }
+
+    function updateTabStyles() {
+      for (let i = 1; i <= 5; i++) {
+        const btn = document.getElementById(`tabBtn${i}`);
+        if (i === currentQ) {
+          btn.className = "tab-btn px-4 py-2.5 rounded-xl text-sm font-black flex items-center gap-1.5 transition-all bg-emerald-700 text-white shadow-md";
+        } else {
+          btn.className = "tab-btn px-4 py-2.5 rounded-xl text-sm font-black flex items-center gap-1.5 transition-all text-slate-700 hover:bg-emerald-100";
+        }
+      }
+      document.getElementById('prevBtn').disabled = (currentQ === 1);
+      document.getElementById('nextBtn').disabled = (currentQ === 5);
+      document.getElementById('questionTag').innerText = `Question ${currentQ} of 5`;
+      document.getElementById('bottomQNum').innerText = currentQ;
+    }
+
+    function getRollX() {
+      return currentRollDigits || "105";
+    }
+
+    function getRollDecimal() {
+      return parseFloat("0." + getRollX());
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').innerText = msg;
+      toast.classList.remove('translate-y-28', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-28', 'opacity-0');
+      }, 2800);
+    }
+
+    // Modal control functions
+    function openPreviewModal(imgDataUrl, filename) {
+      const modal = document.getElementById('imagePreviewModal');
+      const img = document.getElementById('previewImgElement');
+      const filenameLabel = document.getElementById('previewFilename');
+      const openBtn = document.getElementById('openInNewTabBtn');
+
+      img.src = imgDataUrl;
+      filenameLabel.innerText = filename;
+      openBtn.href = imgDataUrl;
+
+      modal.classList.remove('hidden');
+    }
+
+    function closePreviewModal() {
+      document.getElementById('imagePreviewModal').classList.add('hidden');
+    }
+
+    // High resolution Image Download handler with automatic download and immediate Open option
+    function downloadAndOpenSolutionImage() {
+      const element = document.getElementById('solutionCard');
+      const dlBtn = document.getElementById('downloadImgBtn');
+      const originalText = dlBtn.innerHTML;
+      
+      dlBtn.disabled = true;
+      dlBtn.innerHTML = `<i class="ph ph-spinner animate-spin text-lg"></i> Generating Image...`;
+      showToast("Generating image of Question " + currentQ + "...");
+
+      // Configure html2canvas for crisp image rendering
+      html2canvas(element, {
+        scale: 2, // High resolution retina scale
+        useCORS: true,
+        backgroundColor: '#ffffff',
+        logging: false,
+        windowWidth: element.scrollWidth
+      }).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        const cleanName = currentStudentName.replace(/[^a-zA-Z0-9]/g, '_');
+        const filename = `SecB_${cleanName}_Roll_${getRollX()}_Q${currentQ}.png`;
+        
+        // 1. Trigger Automatic Download
+        link.download = filename;
+        link.href = imgData;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        // 2. Open interactive preview modal with an immediate "Open in New Tab" button
+        openPreviewModal(imgData, filename);
+
+        dlBtn.disabled = false;
+        dlBtn.innerHTML = originalText;
+        showToast("Image downloaded! Click 'Open in New Tab' to view full size.");
+      }).catch(err => {
+        console.error("Download failed:", err);
+        dlBtn.disabled = false;
+        dlBtn.innerHTML = originalText;
+        showToast("Error generating image. Please try again.");
+      });
+    }
+
+    // Backward compatibility wrapper
+    function downloadSolutionAsImage() {
+      downloadAndOpenSolutionImage();
+    }
+
+    // Render Logic for All 5 Problems in BOLD & LONG-FORM FORMAT
+    function renderCurrentQuestion() {
+      const qStmt = document.getElementById('questionStatement');
+      const container = document.getElementById('solutionSteps');
+      const rollStr = getRollX();
+      const decRoll = getRollDecimal(); // e.g., 0.105
+
+      if (currentQ === 1) {
+        // QUESTION 1
+        qStmt.innerHTML = `
+          <strong>1.</strong> A 4-pole Lap wound DC Shunt generator has a useful flux per pole of 
+          <span class="text-white font-mono-code font-black underline bg-emerald-950 px-2 py-0.5 rounded">0.${rollStr} Wb</span>. 
+          The armature winding consists of 200 turns, each turn having resistance of 
+          <span class="text-white font-mono-code font-black underline bg-emerald-950 px-2 py-0.5 rounded">0.${rollStr} Ω</span>. 
+          Calculate the terminal voltage when running at 1000 RPM if the armature current is 45 A.
+        `;
+
+        const P = 4;
+        const A = 4; // Lap wound => A = P = 4
+        const turns = 200;
+        const Z = 2 * turns; // 400 conductors
+        const phi = decRoll;
+        const N = 1000; // rpm
+        const Ia = 45; // A
+        const R_turn = decRoll;
+        
+        // Total resistance = turns * R_turn
+        // Ra = Total Resistance / A^2
+        const totalWindingRes = turns * R_turn;
+        const Ra = totalWindingRes / (A * A);
+
+        // Eg = (P * phi * Z * N) / (60 * A) = (phi * Z * N) / 60
+        const Eg = (P * phi * Z * N) / (60 * A);
+        const armatureDrop = Ia * Ra;
+        const V = Eg - armatureDrop;
+
+        container.innerHTML = `
+          <!-- Step 1: Given Data -->
+          <div class="bg-emerald-50 border-2 border-emerald-400 p-5 rounded-2xl shadow-sm">
+            <h3 class="text-base md:text-lg font-black text-emerald-950 uppercase tracking-wide mb-3 flex items-center gap-2">
+              <i class="ph ph-list-numbers text-emerald-700 text-xl font-black"></i>
+              STEP 1: GIVEN PARAMETERS (${currentStudentName} • Roll Digits: ${rollStr})
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm md:text-base font-bold text-slate-900">
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">
+                • Number of Poles (<strong>P</strong>) = <span class="text-emerald-800 font-mono-code font-black">4</span>
+              </div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">
+                • Winding Type = <strong>Lap Wound</strong> &rarr; Parallel Paths (<strong>A</strong>) = P = <span class="text-emerald-800 font-mono-code font-black">4</span>
+              </div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">
+                • Flux per pole (&Phi;) = 0.${rollStr} Wb = <span class="text-emerald-800 font-mono-code font-black">${phi.toFixed(5)} Weber</span>
+              </div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">
+                • Total Turns = 200 &rarr; Total Conductors (<strong>Z</strong>) = 200 &times; 2 = <span class="text-emerald-800 font-mono-code font-black">400</span>
+              </div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">
+                • Resistance per turn = 0.${rollStr} &Omega; = <span class="text-emerald-800 font-mono-code font-black">${R_turn.toFixed(5)} &Omega;</span>
+              </div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">
+                • Speed of rotation (<strong>N</strong>) = <span class="text-emerald-800 font-mono-code font-black">1000 RPM</span>
+              </div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200 md:col-span-2">
+                • Armature Current (<strong>I<sub>a</sub></strong>) = <span class="text-emerald-800 font-mono-code font-black">45 Amperes</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Armature Resistance -->
+          <div class="bg-white border-2 border-emerald-400 p-5 rounded-2xl shadow-sm">
+            <h3 class="text-base md:text-lg font-black text-emerald-950 uppercase tracking-wide mb-3 flex items-center gap-2">
+              <i class="ph ph-calculator text-emerald-700 text-xl font-black"></i>
+              STEP 2: CALCULATION OF ARMATURE RESISTANCE (R<sub>a</sub>)
+            </h3>
+            <p class="text-sm font-bold text-slate-700 mb-2">
+              The 200 turns are distributed into <strong>A = 4</strong> parallel paths.
+            </p>
+            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-300 font-mono-code text-sm md:text-base space-y-2 text-slate-900 font-bold">
+              <div>Total Winding Resistance (all turns in series):</div>
+              <div class="pl-4 text-emerald-900 font-black">R<sub>total</sub> = Turns &times; Resistance per turn</div>
+              <div class="pl-4">R<sub>total</sub> = 200 &times; ${R_turn.toFixed(5)} = <strong>${totalWindingRes.toFixed(4)} &Omega;</strong></div>
+              <div class="pt-2">Since there are A = 4 parallel paths, the equivalent armature resistance is:</div>
+              <div class="pl-4 text-emerald-900 font-black">R<sub>a</sub> = R<sub>total</sub> / A<sup>2</sup> = ${totalWindingRes.toFixed(4)} / (4)<sup>2</sup></div>
+              <div class="pl-4">R<sub>a</sub> = ${totalWindingRes.toFixed(4)} / 16</div>
+              <div class="bg-white p-3 rounded-lg border-2 border-emerald-500 text-emerald-900 font-black text-base md:text-lg">
+                &rArr; R<sub>a</sub> = ${Ra.toFixed(5)} &Omega;
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Generated EMF -->
+          <div class="bg-white border-2 border-emerald-400 p-5 rounded-2xl shadow-sm">
+            <h3 class="text-base md:text-lg font-black text-emerald-950 uppercase tracking-wide mb-3 flex items-center gap-2">
+              <i class="ph ph-function text-emerald-700 text-xl font-black"></i>
+              STEP 3: GENERATED EMF (E<sub>g</sub>)
+            </h3>
+            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-300 font-mono-code text-sm md:text-base space-y-2 text-slate-900 font-bold">
+              <div class="text-emerald-900 font-black">E<sub>g</sub> = (P &middot; &Phi; &middot; Z &middot; N) / (60 &middot; A)</div>
+              <div>Because the winding is Lap wound, <strong>P = A = 4</strong>:</div>
+              <div class="pl-4">E<sub>g</sub> = (&Phi; &middot; Z &middot; N) / 60</div>
+              <div class="pl-4">E<sub>g</sub> = (${phi.toFixed(5)} &times; 400 &times; 1000) / 60</div>
+              <div class="pl-4">E<sub>g</sub> = ${(phi * 400 * 1000).toFixed(2)} / 60</div>
+              <div class="bg-white p-3 rounded-lg border-2 border-emerald-500 text-emerald-900 font-black text-base md:text-lg">
+                &rArr; E<sub>g</sub> = ${Eg.toFixed(3)} Volts
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 4: Terminal Voltage -->
+          <div class="bg-emerald-100 border-3 border-emerald-600 p-6 rounded-2xl shadow-md">
+            <h3 class="text-base md:text-xl font-black text-emerald-950 uppercase tracking-wide mb-3 flex items-center gap-2">
+              <i class="ph ph-check-circle text-emerald-800 text-2xl font-black"></i>
+              STEP 4: FINAL TERMINAL VOLTAGE (V)
+            </h3>
+            <div class="font-mono-code text-sm md:text-base space-y-2 text-slate-900 font-bold">
+              <div>Formula for DC Shunt Generator: <strong>V = E<sub>g</sub> - (I<sub>a</sub> &middot; R<sub>a</sub>)</strong></div>
+              <div>Armature drop = I<sub>a</sub> &times; R<sub>a</sub> = 45 A &times; ${Ra.toFixed(5)} &Omega; = <strong class="text-emerald-900">${armatureDrop.toFixed(3)} V</strong></div>
+              <div>Terminal Voltage V = ${Eg.toFixed(3)} - ${armatureDrop.toFixed(3)}</div>
+              <div class="bg-white p-4 rounded-xl border-3 border-emerald-700 text-emerald-950 text-xl md:text-2xl font-black mt-3 shadow-inner">
+                FINAL ANSWER: Terminal Voltage (V) = <span class="underline text-emerald-800">${V.toFixed(2)} Volts</span>
+              </div>
+            </div>
+          </div>
+        `;
+      } 
+      else if (currentQ === 2) {
+        // QUESTION 2
+        qStmt.innerHTML = `
+          <strong>2.</strong> In a 110V Compound generator, the resistances of the armature, shunt, and series field windings are 
+          <span class="text-white font-mono-code font-black underline bg-emerald-950 px-2 py-0.5 rounded">0.${rollStr} Ω</span>, 
+          <strong>25 Ω</strong>, and 
+          <span class="text-white font-mono-code font-black underline bg-emerald-950 px-2 py-0.5 rounded">0.${rollStr} Ω</span> respectively. 
+          The load consists of 200 lamps each rated at 60W, 110V. Find the total EMF and armature current when the machine is connected: 
+          <strong>(a) Long Shunt</strong> and <strong>(b) Short Shunt</strong>.
+        `;
+
+        const V = 110;
+        const Ra = decRoll;
+        const Rsh = 25;
+        const Rse = decRoll;
+        const nLamps = 200;
+        const lampW = 60;
+        const Pload = nLamps * lampW; // 12000 W
+        const IL = Pload / V; // 109.0909 A
+
+        // (a) Long Shunt
+        const Ish_long = V / Rsh; // 4.4 A
+        const Ia_long = IL + Ish_long;
+        const Eg_long = V + (Ia_long * (Ra + Rse));
+
+        // (b) Short Shunt
+        const Vse_drop = IL * Rse;
+        const Vsh_short = V + Vse_drop;
+        const Ish_short = Vsh_short / Rsh;
+        const Ia_short = IL + Ish_short;
+        const Eg_short = Vsh_short + (Ia_short * Ra);
+
+        container.innerHTML = `
+          <!-- Step 1: Load Current -->
+          <div class="bg-emerald-50 border-2 border-emerald-400 p-5 rounded-2xl shadow-sm">
+            <h3 class="text-base md:text-lg font-black text-emerald-950 uppercase tracking-wide mb-3 flex items-center gap-2">
+              <i class="ph ph-lamp text-emerald-700 text-xl font-black"></i>
+              STEP 1: LOAD CURRENT CALCULATION (I<sub>L</sub>)
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm md:text-base font-bold text-slate-900">
+              <div class="bg-white p-4 rounded-xl border border-emerald-200 space-y-1">
+                <div>• Number of Lamps = <strong>200</strong>, Rating = <strong>60W, 110V</strong> each</div>
+                <div>• Total Load Power (P<sub>L</sub>) = 200 &times; 60 W = <strong class="text-emerald-900">${Pload.toLocaleString()} W (12 kW)</strong></div>
+                <div>• Terminal Voltage (V) = <strong>110 Volts</strong></div>
+                <div class="pt-2 text-emerald-950 font-black">
+                  Load Current (I<sub>L</sub>) = P<sub>L</sub> / V = ${Pload} / 110 = <span class="text-emerald-800 font-mono-code font-black">${IL.toFixed(3)} A</span>
+                </div>
+              </div>
+              <div class="bg-white p-4 rounded-xl border border-emerald-200 font-mono-code space-y-1">
+                <div class="text-emerald-900 font-black text-sm">Resistances for ${currentStudentName} (Roll: ${rollStr}):</div>
+                <div>Armature Resistance (R<sub>a</sub>) = 0.${rollStr} &Omega; = <strong>${Ra.toFixed(4)} &Omega;</strong></div>
+                <div>Shunt Field Resistance (R<sub>sh</sub>) = <strong>${Rsh} &Omega;</strong></div>
+                <div>Series Field Resistance (R<sub>se</sub>) = 0.${rollStr} &Omega; = <strong>${Rse.toFixed(4)} &Omega;</strong></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Case (a): Long Shunt -->
+          <div class="bg-white border-3 border-emerald-500 rounded-2xl p-5 md:p-6 shadow-md">
+            <div class="inline-block bg-emerald-800 text-white text-sm md:text-base px-4 py-1.5 rounded-lg font-black mb-3">
+              CASE (a): LONG SHUNT CONNECTION
+            </div>
+            <p class="text-sm font-bold text-slate-700 mb-3">
+              In Long Shunt, the shunt field is connected across both armature and series field windings.
+            </p>
+            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-300 font-mono-code text-sm md:text-base space-y-2 text-slate-900 font-bold">
+              <div><strong>1. Shunt Field Current (I<sub>sh</sub>):</strong></div>
+              <div class="pl-4">I<sub>sh</sub> = V / R<sub>sh</sub> = 110 / 25 = <strong class="text-emerald-900">${Ish_long.toFixed(3)} A</strong></div>
+              
+              <div class="pt-2"><strong>2. Armature Current (I<sub>a</sub>):</strong></div>
+              <div class="pl-4">I<sub>a</sub> = I<sub>L</sub> + I<sub>sh</sub> = ${IL.toFixed(3)} + ${Ish_long.toFixed(3)}</div>
+              <div class="bg-white p-3 rounded-lg border-2 border-emerald-400 text-emerald-900 font-black text-base md:text-lg">
+                &rArr; Armature Current (I<sub>a</sub>) = ${Ia_long.toFixed(3)} Amperes
+              </div>
+
+              <div class="pt-2"><strong>3. Total Generated EMF (E<sub>g</sub>):</strong></div>
+              <div class="pl-4">E<sub>g</sub> = V + I<sub>a</sub> &middot; (R<sub>a</sub> + R<sub>se</sub>)</div>
+              <div class="pl-4">R<sub>a</sub> + R<sub>se</sub> = ${Ra.toFixed(4)} + ${Rse.toFixed(4)} = <strong>${(Ra + Rse).toFixed(4)} &Omega;</strong></div>
+              <div class="pl-4">E<sub>g</sub> = 110 + [${Ia_long.toFixed(3)} &times; ${(Ra + Rse).toFixed(4)}] = 110 + ${(Ia_long * (Ra + Rse)).toFixed(3)}</div>
+              <div class="bg-white p-3 rounded-lg border-2 border-emerald-400 text-emerald-900 font-black text-base md:text-lg">
+                &rArr; Total EMF (E<sub>g</sub>) = ${Eg_long.toFixed(2)} Volts
+              </div>
+            </div>
+          </div>
+
+          <!-- Case (b): Short Shunt -->
+          <div class="bg-white border-3 border-emerald-500 rounded-2xl p-5 md:p-6 shadow-md">
+            <div class="inline-block bg-emerald-800 text-white text-sm md:text-base px-4 py-1.5 rounded-lg font-black mb-3">
+              CASE (b): SHORT SHUNT CONNECTION
+            </div>
+            <p class="text-sm font-bold text-slate-700 mb-3">
+              In Short Shunt, only the armature is shunted. The series field winding carries full load current I<sub>L</sub>.
+            </p>
+            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-300 font-mono-code text-sm md:text-base space-y-2 text-slate-900 font-bold">
+              <div><strong>1. Series Field Drop &amp; Shunt Voltage (V<sub>sh</sub>):</strong></div>
+              <div class="pl-4">V<sub>se_drop</sub> = I<sub>L</sub> &times; R<sub>se</sub> = ${IL.toFixed(3)} &times; ${Rse.toFixed(4)} = <strong>${Vse_drop.toFixed(3)} V</strong></div>
+              <div class="pl-4">V<sub>sh</sub> = V + (I<sub>L</sub> &times; R<sub>se</sub>) = 110 + ${Vse_drop.toFixed(3)} = <strong>${Vsh_short.toFixed(3)} V</strong></div>
+              
+              <div class="pt-2"><strong>2. Shunt Current (I<sub>sh</sub>):</strong></div>
+              <div class="pl-4">I<sub>sh</sub> = V<sub>sh</sub> / R<sub>sh</sub> = ${Vsh_short.toFixed(3)} / 25 = <strong class="text-emerald-900">${Ish_short.toFixed(3)} A</strong></div>
+
+              <div class="pt-2"><strong>3. Armature Current (I<sub>a</sub>):</strong></div>
+              <div class="pl-4">I<sub>a</sub> = I<sub>L</sub> + I<sub>sh</sub> = ${IL.toFixed(3)} + ${Ish_short.toFixed(3)}</div>
+              <div class="bg-white p-3 rounded-lg border-2 border-emerald-400 text-emerald-900 font-black text-base md:text-lg">
+                &rArr; Armature Current (I<sub>a</sub>) = ${Ia_short.toFixed(3)} Amperes
+              </div>
+
+              <div class="pt-2"><strong>4. Total Generated EMF (E<sub>g</sub>):</strong></div>
+              <div class="pl-4">E<sub>g</sub> = V<sub>sh</sub> + (I<sub>a</sub> &middot; R<sub>a</sub>)</div>
+              <div class="pl-4">E<sub>g</sub> = ${Vsh_short.toFixed(3)} + (${Ia_short.toFixed(3)} &times; ${Ra.toFixed(4)})</div>
+              <div class="pl-4">E<sub>g</sub> = ${Vsh_short.toFixed(3)} + ${(Ia_short * Ra).toFixed(3)}</div>
+              <div class="bg-white p-3 rounded-lg border-2 border-emerald-400 text-emerald-900 font-black text-base md:text-lg">
+                &rArr; Total EMF (E<sub>g</sub>) = ${Eg_short.toFixed(2)} Volts
+              </div>
+            </div>
+          </div>
+        `;
+      }
+      else if (currentQ === 3) {
+        // QUESTION 3
+        qStmt.innerHTML = `
+          <strong>3.</strong> A 500V D.C. Series motor has 4 poles wave wound armature with 948 conductors and total resistance of 
+          <span class="text-white font-mono-code font-black underline bg-emerald-950 px-2 py-0.5 rounded">2.${rollStr} Ω</span>. 
+          When mechanical torque developed is <strong>45 kg-m</strong>, the flux per pole is 
+          <span class="text-white font-mono-code font-black underline bg-emerald-950 px-2 py-0.5 rounded">0.2${rollStr} Weber</span>. 
+          Calculate the current taken by the motor and the speed.
+        `;
+
+        const V = 500;
+        const P = 4;
+        const A = 2; // Wave wound => A = 2
+        const Z = 948;
+        const Ra_total = parseFloat("2." + rollStr);
+        const T_kgm = 45;
+        const g = 9.81;
+        const T_Nm = T_kgm * g; // 441.45 N-m
+        const phi = parseFloat("0.2" + rollStr);
+
+        // Ia = (T_Nm * 2 * pi * A) / (P * phi * Z)
+        const Ia = (T_Nm * 2 * Math.PI * A) / (P * phi * Z);
+        const Eb = V - (Ia * Ra_total);
+        const N = (Eb * 60 * A) / (P * phi * Z);
+
+        container.innerHTML = `
+          <!-- Given Data -->
+          <div class="bg-emerald-50 border-2 border-emerald-400 p-5 rounded-2xl shadow-sm">
+            <h3 class="text-base md:text-lg font-black text-emerald-950 uppercase tracking-wide mb-3 flex items-center gap-2">
+              <i class="ph ph-list-numbers text-emerald-700 text-xl font-black"></i>
+              GIVEN DATA (${currentStudentName} • Roll Digits: ${rollStr})
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm md:text-base font-bold text-slate-900">
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">• Terminal Voltage (V) = <strong>500 V</strong></div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">• Number of Poles (P) = <strong>4</strong></div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">• Winding = <strong>Wave Wound</strong> &rarr; Parallel Paths (A) = <strong>2</strong></div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">• Total Conductors (Z) = <strong>948</strong></div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">• Total Motor Resistance (R<sub>total</sub>) = 2.${rollStr} &Omega; = <strong class="text-emerald-900">${Ra_total.toFixed(4)} &Omega;</strong></div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">• Flux per pole (&Phi;) = 0.2${rollStr} Wb = <strong class="text-emerald-900">${phi.toFixed(5)} Wb</strong></div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200 md:col-span-2">
+                • Mechanical Torque Developed = 45 kg-m = 45 &times; 9.81 = <strong class="text-emerald-900 font-mono-code">${T_Nm.toFixed(2)} N-m</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 1: Armature Current -->
+          <div class="bg-white border-2 border-emerald-400 p-5 rounded-2xl shadow-sm">
+            <h3 class="text-base md:text-lg font-black text-emerald-950 uppercase tracking-wide mb-3 flex items-center gap-2">
+              <i class="ph ph-lightning text-emerald-700 text-xl font-black"></i>
+              STEP 1: CURRENT TAKEN BY MOTOR (I<sub>a</sub>)
+            </h3>
+            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-300 font-mono-code text-sm md:text-base space-y-2 text-slate-900 font-bold">
+              <div>Torque Equation of DC Motor: <strong>T = (P &middot; &Phi; &middot; Z &middot; I<sub>a</sub>) / (2&pi; &middot; A)</strong></div>
+              <div class="pl-4">I<sub>a</sub> = (T &times; 2&pi; &times; A) / (P &times; &Phi; &times; Z)</div>
+              <div class="pl-4">I<sub>a</sub> = (${T_Nm.toFixed(2)} &times; 2 &times; 3.14159 &times; 2) / (4 &times; ${phi.toFixed(5)} &times; 948)</div>
+              <div class="pl-4">I<sub>a</sub> = ${(T_Nm * 4 * Math.PI).toFixed(2)} / ${(P * phi * Z).toFixed(3)}</div>
+              <div class="bg-white p-3 rounded-lg border-2 border-emerald-500 text-emerald-900 font-black text-base md:text-xl">
+                &rArr; Current Taken by Motor (I<sub>a</sub>) = ${Ia.toFixed(2)} Amperes
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Back EMF and Speed -->
+          <div class="bg-white border-2 border-emerald-400 p-5 rounded-2xl shadow-sm">
+            <h3 class="text-base md:text-lg font-black text-emerald-950 uppercase tracking-wide mb-3 flex items-center gap-2">
+              <i class="ph ph-gauge text-emerald-700 text-xl font-black"></i>
+              STEP 2: BACK EMF (E<sub>b</sub>) &amp; SPEED (N)
+            </h3>
+            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-300 font-mono-code text-sm md:text-base space-y-2 text-slate-900 font-bold">
+              <div><strong>1. Back EMF (E<sub>b</sub>):</strong></div>
+              <div class="pl-4">E<sub>b</sub> = V - (I<sub>a</sub> &middot; R<sub>total</sub>)</div>
+              <div class="pl-4">E<sub>b</sub> = 500 - (${Ia.toFixed(2)} &times; ${Ra_total.toFixed(4)}) = 500 - ${(Ia * Ra_total).toFixed(2)}</div>
+              <div class="pl-4 text-emerald-900 font-black">E<sub>b</sub> = ${Eb.toFixed(2)} Volts</div>
+
+              <div class="pt-2"><strong>2. Speed (N):</strong></div>
+              <div class="pl-4">E<sub>b</sub> = (P &middot; &Phi; &middot; Z &middot; N) / (60 &middot; A)</div>
+              <div class="pl-4">N = (E<sub>b</sub> &times; 60 &times; A) / (P &times; &Phi; &times; Z)</div>
+              <div class="pl-4">N = (${Eb.toFixed(2)} &times; 60 &times; 2) / (4 &times; ${phi.toFixed(5)} &times; 948)</div>
+              <div class="pl-4">N = ${(Eb * 120).toFixed(2)} / ${(P * phi * Z).toFixed(3)}</div>
+              <div class="bg-white p-3 rounded-lg border-2 border-emerald-500 text-emerald-900 font-black text-base md:text-xl">
+                &rArr; Motor Speed (N) = ${N.toFixed(2)} RPM
+              </div>
+            </div>
+          </div>
+
+          <!-- Summary Box -->
+          <div class="bg-emerald-100 border-3 border-emerald-600 p-5 rounded-2xl">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-3 text-base md:text-lg font-black text-emerald-950">
+              <span>FINAL RESULTS SUMMARY:</span>
+              <div class="flex flex-wrap gap-3">
+                <span class="bg-white px-4 py-2 rounded-xl border-2 border-emerald-500 font-mono-code text-emerald-900">
+                  Current: ${Ia.toFixed(2)} A
+                </span>
+                <span class="bg-white px-4 py-2 rounded-xl border-2 border-emerald-500 font-mono-code text-emerald-900">
+                  Speed: ${N.toFixed(2)} RPM
+                </span>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+      else if (currentQ === 4) {
+        // QUESTION 4
+        qStmt.innerHTML = `
+          <strong>4.</strong> A 250V shunt motor takes a current of 46A and runs at 800 RPM. On full load, armature and field resistances are 
+          <span class="text-white font-mono-code font-black underline bg-emerald-950 px-2 py-0.5 rounded">0.2${rollStr} Ω</span> and 
+          <span class="text-white font-mono-code font-black underline bg-emerald-950 px-2 py-0.5 rounded">250 Ω</span>. 
+          If a resistance of <span class="text-white font-mono-code font-black underline bg-emerald-950 px-2 py-0.5 rounded">2 Ω</span> is placed in series with the armature, determine: 
+          <strong>(a) Speed at full load torque</strong> and <strong>(b) Speed at double the full-load torque</strong>.
+        `;
+
+        const V = 250;
+        const IL1 = 46;
+        const N1 = 800;
+        const Ra = parseFloat("0.2" + rollStr);
+        const Rsh = 250;
+        const R_ext = 2.0;
+
+        const Ish = V / Rsh; // 1.0 A
+        const Ia1 = IL1 - Ish; // 45 A
+        const Eb1 = V - (Ia1 * Ra);
+
+        // (a) Full load torque => Ia2 = Ia1 = 45 A
+        const Ia2 = Ia1;
+        const Eb2 = V - Ia2 * (Ra + R_ext);
+        const N2 = N1 * (Eb2 / Eb1);
+
+        // (b) Double full load torque => Ia3 = 2 * Ia1 = 90 A
+        const Ia3 = 2 * Ia1;
+        const Eb3 = V - Ia3 * (Ra + R_ext);
+        const N3 = N1 * (Eb3 / Eb1);
+
+        container.innerHTML = `
+          <!-- Initial State -->
+          <div class="bg-emerald-50 border-2 border-emerald-400 p-5 rounded-2xl shadow-sm">
+            <h3 class="text-base md:text-lg font-black text-emerald-950 uppercase tracking-wide mb-3 flex items-center gap-2">
+              <i class="ph ph-gear text-emerald-700 text-xl font-black"></i>
+              INITIAL PARAMETERS &amp; INITIAL BACK EMF (E<sub>b1</sub>)
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm md:text-base font-bold text-slate-900">
+              <div class="bg-white p-3 rounded-xl border border-emerald-200 space-y-1">
+                <div>• Supply Voltage (V) = <strong>250 V</strong></div>
+                <div>• Initial Full-Load Current (I<sub>L1</sub>) = <strong>46 A</strong></div>
+                <div>• Initial Speed (N<sub>1</sub>) = <strong>800 RPM</strong></div>
+                <div>• Added Series Resistance (R<sub>ext</sub>) = <strong>2.0 &Omega;</strong></div>
+              </div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200 font-mono-code space-y-1">
+                <div>R<sub>a</sub> = 0.2${rollStr} &Omega; = <strong class="text-emerald-900">${Ra.toFixed(5)} &Omega;</strong></div>
+                <div>R<sub>sh</sub> = <strong>${Rsh} &Omega;</strong></div>
+                <div>I<sub>sh</sub> = V / R<sub>sh</sub> = 250 / 250 = <strong>1.0 A</strong></div>
+                <div>I<sub>a1</sub> = I<sub>L1</sub> - I<sub>sh</sub> = 46 - 1 = <strong>${Ia1} A</strong></div>
+              </div>
+            </div>
+            <div class="bg-white p-4 rounded-xl border-2 border-emerald-400 font-mono-code text-sm md:text-base mt-3 text-slate-900 font-bold">
+              <div>Initial Back EMF: E<sub>b1</sub> = V - (I<sub>a1</sub> &middot; R<sub>a</sub>)</div>
+              <div class="pl-4">E<sub>b1</sub> = 250 - (${Ia1} &times; ${Ra.toFixed(5)}) = 250 - ${(Ia1 * Ra).toFixed(3)}</div>
+              <div class="text-emerald-900 font-black text-base md:text-lg mt-1">
+                &rArr; E<sub>b1</sub> = ${Eb1.toFixed(3)} Volts
+              </div>
+            </div>
+          </div>
+
+          <!-- Part (a) -->
+          <div class="bg-white border-3 border-emerald-500 rounded-2xl p-5 md:p-6 shadow-md">
+            <div class="inline-block bg-emerald-800 text-white text-sm md:text-base px-4 py-1.5 rounded-lg font-black mb-3">
+              PART (a): SPEED AT FULL LOAD TORQUE (WITH 2 &Omega; ADDED)
+            </div>
+            <p class="text-sm font-bold text-slate-700 mb-2">
+              In a DC shunt motor, field current and flux &Phi; remain constant. Since Torque T &prop; &Phi; &middot; I<sub>a</sub>, for same torque: 
+              <strong>I<sub>a2</sub> = I<sub>a1</sub> = ${Ia1} A</strong>.
+            </p>
+            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-300 font-mono-code text-sm md:text-base space-y-2 text-slate-900 font-bold">
+              <div>Total Circuit Resistance = R<sub>a</sub> + R<sub>ext</sub> = ${Ra.toFixed(5)} + 2.0 = <strong>${(Ra + R_ext).toFixed(5)} &Omega;</strong></div>
+              <div>E<sub>b2</sub> = V - [I<sub>a2</sub> &middot; (R<sub>a</sub> + R<sub>ext</sub>)]</div>
+              <div>E<sub>b2</sub> = 250 - [${Ia2} &times; ${(Ra + R_ext).toFixed(5)}] = 250 - ${(Ia2 * (Ra + R_ext)).toFixed(3)} = <strong class="text-emerald-900">${Eb2.toFixed(3)} V</strong></div>
+              <div class="pt-2">Speed Formula: N<sub>2</sub> / N<sub>1</sub> = E<sub>b2</sub> / E<sub>b1</sub></div>
+              <div>N<sub>2</sub> = 800 &times; (${Eb2.toFixed(3)} / ${Eb1.toFixed(3)})</div>
+              <div class="bg-white p-3 rounded-lg border-2 border-emerald-500 text-emerald-900 font-black text-lg md:text-2xl mt-2">
+                &rArr; Speed at Full-Load Torque (N<sub>2</sub>) = <span class="underline">${N2.toFixed(2)} RPM</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Part (b) -->
+          <div class="bg-white border-3 border-emerald-500 rounded-2xl p-5 md:p-6 shadow-md">
+            <div class="inline-block bg-emerald-800 text-white text-sm md:text-base px-4 py-1.5 rounded-lg font-black mb-3">
+              PART (b): SPEED AT DOUBLE THE FULL-LOAD TORQUE
+            </div>
+            <p class="text-sm font-bold text-slate-700 mb-2">
+              For double torque (T<sub>3</sub> = 2 &middot; T<sub>1</sub>) with constant flux: 
+              <strong>I<sub>a3</sub> = 2 &times; I<sub>a1</sub> = 2 &times; ${Ia1} = ${Ia3} A</strong>.
+            </p>
+            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-300 font-mono-code text-sm md:text-base space-y-2 text-slate-900 font-bold">
+              <div>E<sub>b3</sub> = V - [I<sub>a3</sub> &middot; (R<sub>a</sub> + R<sub>ext</sub>)]</div>
+              <div>E<sub>b3</sub> = 250 - [${Ia3} &times; ${(Ra + R_ext).toFixed(5)}] = 250 - ${(Ia3 * (Ra + R_ext)).toFixed(3)} = <strong class="text-emerald-900">${Eb3.toFixed(3)} V</strong></div>
+              <div class="pt-2">Speed Formula: N<sub>3</sub> = N<sub>1</sub> &times; (E<sub>b3</sub> / E<sub>b1</sub>)</div>
+              <div>N<sub>3</sub> = 800 &times; (${Eb3.toFixed(3)} / ${Eb1.toFixed(3)})</div>
+              <div class="bg-white p-3 rounded-lg border-2 border-emerald-500 text-emerald-900 font-black text-lg md:text-2xl mt-2">
+                &rArr; Speed at Double Torque (N<sub>3</sub>) = <span class="underline">${N3.toFixed(2)} RPM</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+      else if (currentQ === 5) {
+        // QUESTION 5
+        qStmt.innerHTML = `
+          <strong>5.</strong> A 100 kW, 400V DC Shunt generator was run as a motor on no-load at rated voltage and speed. The total current taken was 10A including a shunt current of 
+          <span class="text-white font-mono-code font-black underline bg-emerald-950 px-2 py-0.5 rounded">3.${rollStr} A</span>. 
+          The resistance of the armature circuit at normal temperature was 
+          <span class="text-white font-mono-code font-black underline bg-emerald-950 px-2 py-0.5 rounded">0.${rollStr} Ω</span>. 
+          Calculate the efficiency of the generator at full-load.
+        `;
+
+        const P_out = 100000;
+        const V = 400;
+        const I0 = 10;
+        const Ish = parseFloat("3." + rollStr);
+        const Ra = decRoll;
+
+        const Ia0 = I0 - Ish;
+        const P_in0 = V * I0;
+        const Cu_loss0 = (Ia0 * Ia0) * Ra;
+        const Wc = P_in0 - Cu_loss0;
+
+        const IL = P_out / V; // 250 A
+        const Ia_fl = IL + Ish;
+        const Cu_loss_fl = (Ia_fl * Ia_fl) * Ra;
+        const Total_loss_fl = Wc + Cu_loss_fl;
+        const P_in_fl = P_out + Total_loss_fl;
+        const efficiency = (P_out / P_in_fl) * 100;
+
+        container.innerHTML = `
+          <!-- Given Data -->
+          <div class="bg-emerald-50 border-2 border-emerald-400 p-5 rounded-2xl shadow-sm">
+            <h3 class="text-base md:text-lg font-black text-emerald-950 uppercase tracking-wide mb-3 flex items-center gap-2">
+              <i class="ph ph-list-numbers text-emerald-700 text-xl font-black"></i>
+              GIVEN DATA (Swinburne's No-Load Test • ${currentStudentName} • Roll Digits: ${rollStr})
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm md:text-base font-bold text-slate-900">
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">• Rated Output Power (P<sub>out</sub>) = <strong>100 kW = 100,000 W</strong></div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">• Rated Voltage (V) = <strong>400 V</strong></div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">• Total No-load Current (I<sub>0</sub>) = <strong>10 A</strong></div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200">• Shunt Current (I<sub>sh</sub>) = 3.${rollStr} A = <strong class="text-emerald-900">${Ish.toFixed(4)} A</strong></div>
+              <div class="bg-white p-3 rounded-xl border border-emerald-200 md:col-span-2">• Armature Resistance (R<sub>a</sub>) = 0.${rollStr} &Omega; = <strong class="text-emerald-900 font-mono-code">${Ra.toFixed(5)} &Omega;</strong></div>
+            </div>
+          </div>
+
+          <!-- Step 1: Constant Losses -->
+          <div class="bg-white border-2 border-emerald-400 p-5 rounded-2xl shadow-sm">
+            <h3 class="text-base md:text-lg font-black text-emerald-950 uppercase tracking-wide mb-3 flex items-center gap-2">
+              <i class="ph ph-fire text-emerald-700 text-xl font-black"></i>
+              STEP 1: CONSTANT LOSSES (W<sub>c</sub>)
+            </h3>
+            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-300 font-mono-code text-sm md:text-base space-y-2 text-slate-900 font-bold">
+              <div>Total No-Load Input Power = V &times; I<sub>0</sub> = 400 &times; 10 = <strong>${P_in0} W</strong></div>
+              <div>No-Load Armature Current: I<sub>a0</sub> = I<sub>0</sub> - I<sub>sh</sub> = 10 - ${Ish.toFixed(4)} = <strong>${Ia0.toFixed(4)} A</strong></div>
+              <div>No-Load Armature Cu Loss = I<sub>a0</sub><sup>2</sup> &middot; R<sub>a</sub> = (${Ia0.toFixed(4)})<sup>2</sup> &times; ${Ra.toFixed(5)} = <strong>${Cu_loss0.toFixed(2)} W</strong></div>
+              <div>Constant Losses (Iron + Friction + Shunt Loss):</div>
+              <div class="pl-4 text-emerald-900 font-black">W<sub>c</sub> = Total No-Load Input - No-Load Cu Loss</div>
+              <div class="pl-4">W<sub>c</sub> = ${P_in0} - ${Cu_loss0.toFixed(2)}</div>
+              <div class="bg-white p-3 rounded-lg border-2 border-emerald-500 text-emerald-900 font-black text-base md:text-lg">
+                &rArr; Constant Losses (W<sub>c</sub>) = ${Wc.toFixed(2)} Watts
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Full Load Generator Losses -->
+          <div class="bg-white border-2 border-emerald-400 p-5 rounded-2xl shadow-sm">
+            <h3 class="text-base md:text-lg font-black text-emerald-950 uppercase tracking-wide mb-3 flex items-center gap-2">
+              <i class="ph ph-chart-bar text-emerald-700 text-xl font-black"></i>
+              STEP 2: FULL-LOAD ARMATURE COPPER LOSS &amp; TOTAL LOSS
+            </h3>
+            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-300 font-mono-code text-sm md:text-base space-y-2 text-slate-900 font-bold">
+              <div>Full-load Current to Load: I<sub>L</sub> = 100,000 / 400 = <strong>${IL.toFixed(2)} A</strong></div>
+              <div>Generator Armature Current: I<sub>a(FL)</sub> = I<sub>L</sub> + I<sub>sh</sub> = ${IL.toFixed(2)} + ${Ish.toFixed(4)} = <strong>${Ia_fl.toFixed(4)} A</strong></div>
+              <div>Full-Load Armature Copper Loss:</div>
+              <div class="pl-4">P<sub>cu(FL)</sub> = [I<sub>a(FL)</sub>]<sup>2</sup> &times; R<sub>a</sub> = (${Ia_fl.toFixed(4)})<sup>2</sup> &times; ${Ra.toFixed(5)} = <strong class="text-emerald-900">${Cu_loss_fl.toFixed(2)} W</strong></div>
+              <div class="pt-2">Total Full-Load Losses:</div>
+              <div class="pl-4">W<sub>total</sub> = W<sub>c</sub> + P<sub>cu(FL)</sub> = ${Wc.toFixed(2)} + ${Cu_loss_fl.toFixed(2)}</div>
+              <div class="bg-white p-3 rounded-lg border-2 border-emerald-500 text-emerald-900 font-black text-base md:text-lg">
+                &rArr; Total Losses = ${Total_loss_fl.toFixed(2)} Watts
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Full Load Efficiency -->
+          <div class="bg-emerald-100 border-3 border-emerald-600 p-6 rounded-2xl shadow-md">
+            <h3 class="text-base md:text-xl font-black text-emerald-950 uppercase tracking-wide mb-3 flex items-center gap-2">
+              <i class="ph ph-percent text-emerald-800 text-2xl font-black"></i>
+              STEP 3: FULL-LOAD GENERATOR EFFICIENCY (&eta;)
+            </h3>
+            <div class="font-mono-code text-sm md:text-base space-y-2 text-slate-900 font-bold">
+              <div>Total Generator Input Power = Output + Total Losses</div>
+              <div class="pl-4">P<sub>in(FL)</sub> = 100,000 + ${Total_loss_fl.toFixed(2)} = <strong>${P_in_fl.toFixed(2)} W</strong></div>
+              <div class="pt-2">Efficiency Formula: <strong>&eta; = (P<sub>out</sub> / P<sub>in(FL)</sub>) &times; 100%</strong></div>
+              <div class="pl-4">&eta; = (100,000 / ${P_in_fl.toFixed(2)}) &times; 100%</div>
+              <div class="bg-white p-4 rounded-xl border-3 border-emerald-700 text-emerald-950 text-xl md:text-2xl font-black mt-3 shadow-inner">
+                FINAL EFFICIENCY (&eta;) = <span class="underline text-emerald-800">${efficiency.toFixed(2)} %</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // Function to copy solution steps to clipboard for the current active question
+    function copyCurrentSolution() {
+      const qNum = currentQ;
+      const roll = getRollX();
+      let text = `23EE302 - DC MACHINES ASSIGNMENT 2 (Section B)\nStudent: ${currentStudentName} (${currentFullRoll})\nRoll Digits: ${roll}\nQuestion ${qNum}\n\n`;
+
+      const qText = document.getElementById('questionStatement').innerText;
+      text += `QUESTION:\n${qText}\n\nSTEP-BY-STEP SOLUTION:\n`;
+
+      const stepsDiv = document.getElementById('solutionSteps');
+      text += stepsDiv.innerText;
+
+      const tempTextArea = document.createElement("textarea");
+      tempTextArea.value = text;
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
+      try {
+        document.execCommand('copy');
+        showToast(`Question ${qNum} solution copied to clipboard!`);
+      } catch (err) {
+        showToast('Failed to copy. Please manually select text.');
+      }
+      document.body.removeChild(tempTextArea);
+    }
+
+    // Initialize application on page load
+    window.onload = function() {
+      handleUniversalSearchInput();
+      goToQuestion(1);
+    };
+  </script>
+</body>
+</html>
